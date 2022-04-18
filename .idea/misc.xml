@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jygrz/StudioProjects/mytodoapp/app/src/main/res/drawable/button_bg.xml" value="0.1475" />
         <entry key="..\:/Users/jygrz/StudioProjects/mytodoapp/app/src/main/res/drawable/card_header.xml" value="0.1475" />
         <entry key="..\:/Users/jygrz/StudioProjects/mytodoapp/app/src/main/res/drawable/circle.xml" value="0.148" />
-        <entry key="..\:/Users/jygrz/StudioProjects/mytodoapp/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/jygrz/StudioProjects/mytodoapp/app/src/main/res/layout/activity_add_note.xml" value="0.16" />
+        <entry key="..\:/Users/jygrz/StudioProjects/mytodoapp/app/src/main/res/layout/activity_dashboard.xml" value="0.12894736842105264" />
+        <entry key="..\:/Users/jygrz/StudioProjects/mytodoapp/app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>
   </component>

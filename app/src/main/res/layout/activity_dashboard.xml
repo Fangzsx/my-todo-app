@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_bg"
-    tools:context=".MainActivity">
+    tools:context=".DashboardActivity">
 
 
     <TextView
@@ -15,7 +15,7 @@
         android:text="Today is 18 Apr 2022"
         android:fontFamily="@font/opensansbold"
         android:textColor="@color/white"
-        android:textSize="@dimen/_25ssp"
+        android:textSize="@dimen/_21ssp"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_230sdp"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
                 android:gravity="center_vertical"
                 android:text="Motivational Quote"
                 android:background="@drawable/card_header"
-                android:textSize="@dimen/_18sdp"
+                android:textSize="@dimen/_14sdp"
                 android:padding="@dimen/_8sdp"
                 android:fontFamily="@font/opensanssemibold"
                 android:textColor="@color/white"/>
@@ -55,14 +55,14 @@
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras odio non vitae fames sit."
                 android:textColor="@color/white"
                 android:fontFamily="@font/opensansregular"
-                android:textSize="@dimen/_16ssp"/>
+                android:textSize="@dimen/_12ssp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_todo"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_height="@dimen/_200sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_20sdp"
         app:cardElevation="@dimen/_10sdp"
@@ -87,15 +87,16 @@
                     android:layout_height="@dimen/_38sdp"
                     android:gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Your Tasks"
-                    android:textSize="@dimen/_18sdp"
+                    android:text="Your Todos"
+                    android:textSize="@dimen/_14sdp"
                     android:fontFamily="@font/opensanssemibold"
                     android:textColor="@color/white"/>
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/btn_add"
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
-                    android:src="@drawable/add"
+                    android:background="@drawable/add"
                     android:layout_gravity="center_vertical"/>
 
             </LinearLayout>
@@ -128,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Let's do this, Olivia Grace!"
         android:fontFamily="@font/opensansbold"
-        android:textSize="@dimen/_16ssp"
+        android:textSize="@dimen/_12ssp"
         android:textColor="@color/white"
         android:layout_marginTop="@dimen/_10sdp"/>
     
