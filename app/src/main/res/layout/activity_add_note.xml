@@ -46,6 +46,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                    android:inputType="text"
                     android:background="#F4B3D2"/>
             </com.google.android.material.textfield.TextInputLayout>
 
