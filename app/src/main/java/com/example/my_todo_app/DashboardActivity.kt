@@ -16,7 +16,7 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnAdd.setOnClickListener {
-            Intent(this, AddNoteActivity::class.java).also {
+            Intent(this, ViewEditActivity::class.java).also {
                 startActivity(it)
             }
         }

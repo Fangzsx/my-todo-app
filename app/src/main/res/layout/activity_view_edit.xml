@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/add_note_bg"
-    tools:context=".AddNoteActivity">
+    android:background="@drawable/view_edit_bg"
+    tools:context=".ViewEditActivity">
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_todo"
@@ -30,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_41sdp"
                 android:background="@drawable/card_header"
-                android:text="New Todo"
+                android:text="Todo"
                 android:textSize="@dimen/_14sdp"
                 android:fontFamily="@font/opensanssemibold"
                 android:textColor="@color/white"
@@ -42,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:boxBackgroundMode="none"
-                android:hint="What's your task?"
+                android:hint="Tap to edit text ..."
                 app:hintTextAppearance="@style/TextLabel"
                 android:layout_weight="1"
                 android:layout_marginTop="@dimen/_10sdp">
@@ -53,25 +54,56 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
                     android:inputType="textMultiLine|textCapSentences"
+                    android:text="Learn Figma"
                     android:background="#F4B3D2"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add"
-                app:backgroundTint="#F1308C"
-                android:fontFamily="@font/opensanssemibold"
-                android:background="@drawable/button_bg"
-                android:layout_gravity="end"
-                android:layout_margin="@dimen/_10sdp"/>
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="horizontal">
 
-            
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    app:backgroundTint="#F1308C"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:background="@drawable/button_bg"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end"
+                    android:layout_weight="1">
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delete"
+                        app:backgroundTint="#F1308C"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:background="@drawable/button_bg"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        app:backgroundTint="#F1308C"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:background="@drawable/button_bg"
+                        android:layout_marginStart="@dimen/_10sdp"/>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
