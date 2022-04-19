@@ -66,10 +66,12 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Save"
                     app:backgroundTint="#F1308C"
+                    android:visibility="gone"
                     android:fontFamily="@font/opensanssemibold"
                     android:background="@drawable/button_bg"/>
 
@@ -80,6 +82,7 @@
                     android:gravity="end"
                     android:layout_weight="1">
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_delete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Delete"
@@ -87,6 +90,7 @@
                         android:fontFamily="@font/opensanssemibold"
                         android:background="@drawable/button_bg"/>
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Edit"
