@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mytodoapp">
         <activity
+            android:name=".ProfileSetupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GreetActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewEditActivity"
             android:exported="false" />
         <activity
