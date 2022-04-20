@@ -1,5 +1,6 @@
 package com.example.my_todo_app.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.my_todo_app.model.Note
 
@@ -14,5 +15,5 @@ interface NoteDao {
     suspend fun deleteNote(note : Note)
 
     @Query("SELECT * FROM notes")
-    fun getNotes()
+    fun getNotes() : LiveData<List<Note>>
 }
