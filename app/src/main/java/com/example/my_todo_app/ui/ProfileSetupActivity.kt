@@ -56,7 +56,7 @@ class ProfileSetupActivity : AppCompatActivity() {
         binding.btnUpload.setOnClickListener {
             ImagePicker.with(this)
                 // Crop Image(User can choose Aspect Ratio)
-                .crop()
+                .crop(1f,1f)
                 // User can only select image from Gallery
                 .galleryOnly()
                 .galleryMimeTypes( // no gif images at all
