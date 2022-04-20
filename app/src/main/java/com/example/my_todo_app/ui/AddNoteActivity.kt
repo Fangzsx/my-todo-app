@@ -1,13 +1,11 @@
-package com.example.my_todo_app
+package com.example.my_todo_app.ui
 
-import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.my_todo_app.R
 import com.example.my_todo_app.databinding.ActivityAddNoteBinding
 
 class AddNoteActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.my_todo_app
+package com.example.my_todo_app.ui
 
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.example.my_todo_app.R
 import com.example.my_todo_app.databinding.ActivityViewEditBinding
 
 class ViewEditActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.my_todo_app
+package com.example.my_todo_app.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

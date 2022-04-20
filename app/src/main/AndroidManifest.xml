@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mytodoapp">
         <activity
-            android:name=".ProfileSetupActivity"
+            android:name=".ui.ProfileSetupActivity"
             android:exported="false" />
         <activity
-            android:name=".GreetActivity"
+            android:name=".ui.GreetActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,13 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewEditActivity"
+            android:name=".ui.ViewEditActivity"
             android:exported="false" />
         <activity
-            android:name=".AddNoteActivity"
+            android:name=".ui.AddNoteActivity"
             android:exported="false" />
         <activity
-            android:name=".DashboardActivity"
+            android:name=".ui.DashboardActivity"
             android:exported="false">
 
         </activity>

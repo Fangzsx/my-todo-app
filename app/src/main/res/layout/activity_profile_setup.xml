@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/profile_setup_bg"
     android:padding="@dimen/_10sdp"
-    tools:context=".ProfileSetupActivity">
+    tools:context=".ui.ProfileSetupActivity">
 
 
 
@@ -35,6 +35,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
+                android:id="@+id/btn_upload"
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 app:layout_constraintTop_toTopOf="@id/civ_profile_pic"
