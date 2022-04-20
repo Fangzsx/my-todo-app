@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
     android:orientation="horizontal"
     android:paddingStart="@dimen/_7sdp"
     android:gravity="center_horizontal"
@@ -17,6 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
+        android:fontFamily="@font/opensansregular"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp"
         android:singleLine="true"/>
 
 
