@@ -7,8 +7,15 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.my_todo_app.adapter.NoteAdapter
 import com.example.my_todo_app.databinding.ActivityDashboardBinding
+import com.example.my_todo_app.db.NoteDatabase
+import com.example.my_todo_app.repo.NoteRepository
 import com.example.my_todo_app.util.Constants
+import com.example.my_todo_app.viewmodel.DashboardActivityViewModel
+import com.example.my_todo_app.viewmodel.factory.DashboardActivityFactory
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random
@@ -17,6 +24,10 @@ import kotlin.random.Random
 class DashboardActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDashboardBinding
     private lateinit var prefs : SharedPreferences
+    private lateinit var dashboardActivityVM : DashboardActivityViewModel
+    private lateinit var dashboardActivityVMF : DashboardActivityFactory
+    private lateinit var noteAdapter : NoteAdapter
+
 
 
     @SuppressLint("SimpleDateFormat")
@@ -24,6 +35,12 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         prefs = getSharedPreferences(ProfileSetupActivity.PACKAGE_NAME, Context.MODE_PRIVATE)
+
+        dashboardActivityVMF = DashboardActivityFactory(NoteRepository(NoteDatabase.getInstance(this).getNoteDao()))
+        dashboardActivityVM = ViewModelProvider(this, dashboardActivityVMF).get(DashboardActivityViewModel::class.java)
+
+
+        noteAdapter = NoteAdapter()
         setContentView(binding.root)
 
         //check if profile is already set up
@@ -57,6 +74,14 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
 
+        dashboardActivityVM.getNotes().observe(this){ noteList ->
+            noteAdapter.differ.submitList(noteList)
+        }
+
+        binding.rvTodos.apply {
+            layoutManager = LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.VERTICAL, false)
+            adapter = noteAdapter
+        }
 
     }
 }
