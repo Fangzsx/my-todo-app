@@ -18,8 +18,6 @@ class ProfileSetupActivity : AppCompatActivity() {
     private lateinit var binding : ActivityProfileSetupBinding
 
 
-    private var mCameraUri: Uri? = null
-    private var mGalleryUri: Uri? = null
     private var mProfileUri: Uri? = null
 
     private val startForProfileImageResult =
@@ -27,19 +25,25 @@ class ProfileSetupActivity : AppCompatActivity() {
             val resultCode = result.resultCode
             val data = result.data
 
-            if (resultCode == Activity.RESULT_OK) {
-                //Image Uri will not be null for RESULT_OK
-                val fileUri = data?.data!!
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    //Image Uri will not be null for RESULT_OK
+                    val fileUri = data?.data!!
 
-                mProfileUri = fileUri
-                binding.civProfilePic.setImageURI(fileUri)
-                binding.btnUpload.alpha = 0.25f
-                Toast.makeText(this, mProfileUri.toString(), Toast.LENGTH_SHORT).show()
+                    mProfileUri = fileUri
+                    binding.civProfilePic.setImageURI(fileUri)
+                    binding.btnUpload.alpha = 0.25f
+                    Toast.makeText(this, mProfileUri.toString(), Toast.LENGTH_SHORT).show()
 
-            } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+                }
+                ImagePicker.RESULT_ERROR -> {
+                    Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+
+                    //TODO: handle on return
+                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -50,33 +54,10 @@ class ProfileSetupActivity : AppCompatActivity() {
         binding = ActivityProfileSetupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //upload
-
 
         binding.btnUpload.setOnClickListener {
-            ImagePicker.with(this)
-                // Crop Image(User can choose Aspect Ratio)
-                .crop(1f,1f)
-                // User can only select image from Gallery
-                .galleryOnly()
-                .galleryMimeTypes( // no gif images at all
-                    mimeTypes = arrayOf(
-                        "image/png",
-                        "image/jpg",
-                        "image/jpeg"
-                    )
-                )
-                // Image resolution will be less than 1080 x 1920
-                .maxResultSize(1080, 1920)
-                // .saveDir(getExternalFilesDir(null)!!)
-                .createIntent { intent ->
-                    startForProfileImageResult.launch(intent)
-                }
-
+            uploadImage()
         }
-
-
-
 
         binding.btnComplete.setOnClickListener {
             Intent(this, DashboardActivity::class.java).also {
@@ -92,6 +73,27 @@ class ProfileSetupActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    private fun uploadImage() {
+        ImagePicker.with(this)
+            // Crop Image(User can choose Aspect Ratio)
+            .crop(1f, 1f)
+            // User can only select image from Gallery
+            .galleryOnly()
+            .galleryMimeTypes( // no gif images at all
+                mimeTypes = arrayOf(
+                    "image/png",
+                    "image/jpg",
+                    "image/jpeg"
+                )
+            )
+            // Image resolution will be less than 1080 x 1920
+            .maxResultSize(1080, 1920)
+            // .saveDir(getExternalFilesDir(null)!!)
+            .createIntent { intent ->
+                startForProfileImageResult.launch(intent)
+            }
     }
 
 
