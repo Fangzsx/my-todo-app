@@ -41,7 +41,6 @@ class AddNoteActivity : AppCompatActivity() {
             }
         }
 
-
         binding.etNote.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.textInputLayout.hint = "I am planning to ..."
