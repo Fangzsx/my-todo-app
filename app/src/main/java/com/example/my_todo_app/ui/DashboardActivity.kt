@@ -8,6 +8,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.my_todo_app.databinding.ActivityDashboardBinding
+import com.example.my_todo_app.util.Constants
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -32,11 +35,18 @@ class DashboardActivity : AppCompatActivity() {
         }
 
 
-
+        //else, display user info
         val name = prefs.getString(ProfileSetupActivity.NAME, "")
         val profilePicURI = prefs.getString(ProfileSetupActivity.IMAGE_URI_STRING, "")
 
         binding.profilePic.setImageURI(Uri.parse(profilePicURI))
+        val formatter = SimpleDateFormat("dd MMM yyyy")
+        val dateToday = Calendar.getInstance()
+
+        val formattedDate = formatter.format(dateToday.time)
+
+        val dayOfWeek = Calendar.DAY_OF_WEEK-4
+        binding.tvDateToday.text = "Today is ${Constants.daysOfWeek[dayOfWeek]}, $formattedDate"
 
 
     }
