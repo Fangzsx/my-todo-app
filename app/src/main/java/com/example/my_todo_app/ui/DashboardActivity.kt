@@ -6,12 +6,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.my_todo_app.databinding.ActivityDashboardBinding
 import com.example.my_todo_app.util.Constants
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.random.Random
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -42,8 +42,7 @@ class DashboardActivity : AppCompatActivity() {
         val profilePicURI = prefs.getString(ProfileSetupActivity.IMAGE_URI_STRING, "")
         binding.profilePic.setImageURI(Uri.parse(profilePicURI))
 
-        val encourageText = "Let's do this, "
-        binding.tvEncourage.text = "$encourageText $name!"
+        binding.tvEncourage.text = "Let's do this, $name!"
 
 
         val formatter = SimpleDateFormat("dd MMM yyyy")
