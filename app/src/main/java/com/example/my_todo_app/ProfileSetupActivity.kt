@@ -1,5 +1,6 @@
 package com.example.my_todo_app
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,12 @@ class ProfileSetupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileSetupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnComplete.setOnClickListener {
+            Intent(this, DashboardActivity::class.java).also {
+                startActivity(it)
+            }
+        }
 
         binding.etName.setOnFocusChangeListener { _, hasFocus ->
 

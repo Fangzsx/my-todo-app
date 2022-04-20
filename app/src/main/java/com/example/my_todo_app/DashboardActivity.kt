@@ -16,7 +16,7 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnAdd.setOnClickListener {
-            Intent(this, ProfileSetupActivity::class.java).also {
+            Intent(this, GreetActivity::class.java).also {
                 startActivity(it)
             }
         }
