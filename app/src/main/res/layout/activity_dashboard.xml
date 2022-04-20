@@ -12,7 +12,6 @@
         android:id="@+id/tv_date_today"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Today is 18 Apr 2022"
         android:fontFamily="@font/opensansbold"
         android:textColor="@color/white"
         android:textSize="@dimen/_21ssp"
@@ -115,19 +114,18 @@
         android:id="@+id/profile_pic"
         android:layout_width="@dimen/_120sdp"
         android:layout_height="@dimen/_120sdp"
-        android:src="@drawable/oliviagrace"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/_40sdp"/>
 
     <TextView
+        android:id="@+id/tv_encourage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/profile_pic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Let's do this, Olivia Grace!"
         android:fontFamily="@font/opensansbold"
         android:textSize="@dimen/_12ssp"
         android:textColor="@color/white"

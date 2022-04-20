@@ -1,5 +1,6 @@
 package com.example.my_todo_app.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -18,6 +19,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var prefs : SharedPreferences
 
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
@@ -38,13 +40,15 @@ class DashboardActivity : AppCompatActivity() {
         //else, display user info
         val name = prefs.getString(ProfileSetupActivity.NAME, "")
         val profilePicURI = prefs.getString(ProfileSetupActivity.IMAGE_URI_STRING, "")
-
         binding.profilePic.setImageURI(Uri.parse(profilePicURI))
+
+        val encourageText = "Let's do this, "
+        binding.tvEncourage.text = "$encourageText $name!"
+
+
         val formatter = SimpleDateFormat("dd MMM yyyy")
         val dateToday = Calendar.getInstance()
-
         val formattedDate = formatter.format(dateToday.time)
-
         val dayOfWeek = Calendar.DAY_OF_WEEK-4
         binding.tvDateToday.text = "Today is ${Constants.daysOfWeek[dayOfWeek]}, $formattedDate"
 
