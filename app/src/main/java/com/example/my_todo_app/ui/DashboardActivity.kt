@@ -52,6 +52,12 @@ class DashboardActivity : AppCompatActivity() {
         val dayOfWeek = Calendar.DAY_OF_WEEK-4
         binding.tvDateToday.text = "Today is ${Constants.daysOfWeek[dayOfWeek]}, $formattedDate"
 
+        binding.btnAdd.setOnClickListener {
+            Intent(this, AddNoteActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+
 
     }
 }
