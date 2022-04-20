@@ -1,11 +1,14 @@
 package com.example.my_todo_app.ui
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,9 +19,16 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 
 class ProfileSetupActivity : AppCompatActivity() {
     private lateinit var binding : ActivityProfileSetupBinding
+    private lateinit var sharedPref : SharedPreferences
 
 
     private var mProfileUri: Uri? = null
+    companion object{
+        const val PACKAGE_NAME = "com.example.my_todo_app_preferences"
+        const val NAME : String = "nameKey"
+        const val IMAGE_URI_STRING : String = "uriKey"
+        const val IS_SETUP_COMPLETE : String ="isCompleteKey"
+    }
 
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -33,7 +43,6 @@ class ProfileSetupActivity : AppCompatActivity() {
                     mProfileUri = fileUri
                     binding.civProfilePic.setImageURI(fileUri)
                     binding.btnUpload.alpha = 0.25f
-                    Toast.makeText(this, mProfileUri.toString(), Toast.LENGTH_SHORT).show()
 
                 }
                 ImagePicker.RESULT_ERROR -> {
@@ -47,11 +56,10 @@ class ProfileSetupActivity : AppCompatActivity() {
             }
         }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileSetupBinding.inflate(layoutInflater)
+        sharedPref = getSharedPreferences(PACKAGE_NAME, Context.MODE_PRIVATE)
         setContentView(binding.root)
 
 
@@ -60,6 +68,15 @@ class ProfileSetupActivity : AppCompatActivity() {
         }
 
         binding.btnComplete.setOnClickListener {
+
+            val editor : SharedPreferences.Editor = sharedPref.edit()
+            val name = binding.etName.text.toString()
+            val imageURI = mProfileUri.toString()
+
+            editor.putString(NAME, name)
+            editor.putString(IMAGE_URI_STRING, imageURI)
+            editor.apply()
+
             Intent(this, DashboardActivity::class.java).also {
                 startActivity(it)
             }
