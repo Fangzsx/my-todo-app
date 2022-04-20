@@ -70,16 +70,23 @@ class ProfileSetupActivity : AppCompatActivity() {
         binding.btnComplete.setOnClickListener {
 
             val editor : SharedPreferences.Editor = sharedPref.edit()
-            val name = binding.etName.text.toString()
+            val name = binding.etName.text.toString().trim()
             val imageURI = mProfileUri.toString()
 
-            editor.putString(NAME, name)
-            editor.putString(IMAGE_URI_STRING, imageURI)
-            editor.apply()
+            if(name.isNotEmpty() && imageURI.isNotEmpty()){
+                editor.putString(NAME, name)
+                editor.putString(IMAGE_URI_STRING, imageURI)
+                editor.putBoolean(IS_SETUP_COMPLETE, true)
+                editor.apply()
 
-            Intent(this, DashboardActivity::class.java).also {
-                startActivity(it)
+                Intent(this, DashboardActivity::class.java).also {
+                    startActivity(it)
+                }
+            }else{
+                Toast.makeText(this, "please include image and name", Toast.LENGTH_SHORT).show()
             }
+            
+            
         }
 
         binding.etName.setOnFocusChangeListener { _, hasFocus ->

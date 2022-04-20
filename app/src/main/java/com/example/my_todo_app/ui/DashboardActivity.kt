@@ -1,21 +1,13 @@
 package com.example.my_todo_app.ui
 
-import android.app.Activity
 import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.my_todo_app.databinding.ActivityDashboardBinding
-import com.github.dhaval2404.imagepicker.util.FileUriUtils.getRealPath
-import java.io.File
-import java.util.*
-import java.util.prefs.Preferences
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -28,11 +20,19 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         prefs = getSharedPreferences(ProfileSetupActivity.PACKAGE_NAME, Context.MODE_PRIVATE)
 
+        //check if profile is already set up
+        val isProfileSetUpComplete = prefs.getBoolean(ProfileSetupActivity.IS_SETUP_COMPLETE, false)
+        if(!isProfileSetUpComplete){
+            Intent(this, GreetActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+
+
         val name = prefs.getString(ProfileSetupActivity.NAME, "")
         val profilePicURI = prefs.getString(ProfileSetupActivity.IMAGE_URI_STRING, "")
 
         binding.profilePic.setImageURI(Uri.parse(profilePicURI))
-
 
         setContentView(binding.root)
         val imageURI = prefs.getString(ProfileSetupActivity.IMAGE_URI_STRING, "")
