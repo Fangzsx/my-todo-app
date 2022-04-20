@@ -19,8 +19,11 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         prefs = getSharedPreferences(ProfileSetupActivity.PACKAGE_NAME, Context.MODE_PRIVATE)
+        setContentView(binding.root)
 
         //check if profile is already set up
+
+        //if not yet setup, direct user to setup page
         val isProfileSetUpComplete = prefs.getBoolean(ProfileSetupActivity.IS_SETUP_COMPLETE, false)
         if(!isProfileSetUpComplete){
             Intent(this, GreetActivity::class.java).also {
@@ -29,21 +32,12 @@ class DashboardActivity : AppCompatActivity() {
         }
 
 
+
         val name = prefs.getString(ProfileSetupActivity.NAME, "")
         val profilePicURI = prefs.getString(ProfileSetupActivity.IMAGE_URI_STRING, "")
 
         binding.profilePic.setImageURI(Uri.parse(profilePicURI))
 
-        setContentView(binding.root)
-        val imageURI = prefs.getString(ProfileSetupActivity.IMAGE_URI_STRING, "")
-        Toast.makeText(this, imageURI, Toast.LENGTH_SHORT).show()
 
-
-
-        binding.btnAdd.setOnClickListener {
-            Intent(this, GreetActivity::class.java).also {
-                startActivity(it)
-            }
-        }
     }
 }
