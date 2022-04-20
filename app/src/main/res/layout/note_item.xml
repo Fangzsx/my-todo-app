@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:paddingStart="@dimen/_7sdp"
     android:gravity="center_horizontal"
@@ -10,7 +11,8 @@
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:buttonTint="@drawable/checkbox_bg"/>
     <TextView
         android:id="@+id/tv_note"
         android:layout_width="match_parent"
