@@ -37,9 +37,6 @@ class ViewEditActivity : AppCompatActivity() {
             }
         }
 
-        Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
-
-
         val currentText = binding.etNote.text.toString()
 
         binding.etNote.addTextChangedListener(object : TextWatcher{

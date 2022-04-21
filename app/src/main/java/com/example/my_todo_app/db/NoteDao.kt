@@ -17,4 +17,5 @@ interface NoteDao {
     @Query("SELECT * FROM notes ORDER BY id DESC")
     fun getNotes() : LiveData<List<Note>>
 
+
 }
