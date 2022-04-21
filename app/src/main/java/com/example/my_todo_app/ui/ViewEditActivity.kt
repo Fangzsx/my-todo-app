@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.text.trimmedLength
 import androidx.lifecycle.ViewModelProvider
 import com.example.my_todo_app.R
 import com.example.my_todo_app.databinding.ActivityViewEditBinding
@@ -38,31 +39,47 @@ class ViewEditActivity : AppCompatActivity() {
         }
 
 
-
         viewEditActivityVM.getNoteByID(id).observe(this){ note ->
-            binding.etNote.setText(note.content)
+            binding.etNote.setText(note.content.trim())
+
+            //cache original note content before changing
+            val currentText = binding.etNote.text.toString().trim()
+
+            Toast.makeText(this, "$currentText", Toast.LENGTH_SHORT).show()
+
+            binding.etNote.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+                    binding.btnSave.visibility = View.VISIBLE
+
+                    if(currentText == binding.etNote.text.toString().trim()){
+                        binding.btnSave.visibility = View.GONE
+                    }
+                }
+
+            })
+
+            binding.btnEdit.setOnClickListener {
+
+                binding.etNote.apply {
+                    isEnabled = true
+                    requestFocus()
+                    setSelection(this.text!!.trimmedLength())
+                }
+
+
+            }
+
         }
 
-        val currentText = binding.etNote.text.toString()
 
-        binding.etNote.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                binding.btnSave.visibility = View.VISIBLE
-
-                if(currentText == binding.etNote.text.toString()){
-                    binding.btnSave.visibility = View.GONE
-                }
-            }
-
-        })
 
     }
 }
