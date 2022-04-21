@@ -39,7 +39,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         val note = differ.currentList[position]
 
         holder.binding.apply {
-            tvNote.text = note.content + " ${note.id}"
+            tvNote.text = note.content
         }
 
         holder.itemView.setOnClickListener {

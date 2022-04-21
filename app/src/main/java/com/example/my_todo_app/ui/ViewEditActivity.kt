@@ -30,15 +30,17 @@ class ViewEditActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra("noteID", 0)
 
-        binding.etNote.setOnFocusChangeListener { view, hasFocus ->
+        binding.etNote.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus){
                 binding.textInputLayout.defaultHintTextColor = ColorStateList.valueOf(
                     ContextCompat.getColor(this@ViewEditActivity, R.color.gray))
             }
         }
 
-        viewEditActivityVM.getNoteByID(id).observe(this){
-            Toast.makeText(this, it.content.toString(), Toast.LENGTH_SHORT).show()
+
+
+        viewEditActivityVM.getNoteByID(id).observe(this){ note ->
+            binding.etNote.setText(note.content)
         }
 
         val currentText = binding.etNote.text.toString()
