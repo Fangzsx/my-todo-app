@@ -10,6 +10,8 @@ import com.example.my_todo_app.model.Note
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
+    var onItemClick : ((Note) -> Unit)? = null
+
     inner class NoteViewHolder(val binding : NoteItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<Note>(){
@@ -37,7 +39,11 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         val note = differ.currentList[position]
 
         holder.binding.apply {
-            tvNote.text = note.content
+            tvNote.text = note.content + " ${note.id}"
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(note)
         }
     }
 

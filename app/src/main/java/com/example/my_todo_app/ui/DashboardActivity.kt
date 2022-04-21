@@ -82,6 +82,12 @@ class DashboardActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.VERTICAL, false)
             adapter = noteAdapter
         }
+        noteAdapter.onItemClick = { note ->
+            Intent(this, ViewEditActivity::class.java).apply {
+                putExtra("noteID", note.id)
+                startActivity(this)
+            }
+        }
 
     }
 }

@@ -6,17 +6,29 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.my_todo_app.R
 import com.example.my_todo_app.databinding.ActivityViewEditBinding
+import com.example.my_todo_app.db.NoteDatabase
+import com.example.my_todo_app.repo.NoteRepository
+import com.example.my_todo_app.viewmodel.ViewEditActivityViewModel
+import com.example.my_todo_app.viewmodel.factory.ViewEditActivityViewModelFactory
 
 class ViewEditActivity : AppCompatActivity() {
     private lateinit var binding : ActivityViewEditBinding
+    private lateinit var viewEditActivityVM : ViewEditActivityViewModel
+    private lateinit var viewEditActivityVMF : ViewEditActivityViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewEditBinding.inflate(layoutInflater)
+        viewEditActivityVMF = ViewEditActivityViewModelFactory(NoteRepository(NoteDatabase.getInstance(this).getNoteDao()))
+        viewEditActivityVM = ViewModelProvider(this, viewEditActivityVMF).get(ViewEditActivityViewModel::class.java)
         setContentView(binding.root)
+
+        val id = intent.getIntExtra("noteID", 0)
 
         binding.etNote.setOnFocusChangeListener { view, hasFocus ->
             if(hasFocus){
@@ -24,6 +36,9 @@ class ViewEditActivity : AppCompatActivity() {
                     ContextCompat.getColor(this@ViewEditActivity, R.color.gray))
             }
         }
+
+        Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
+
 
         val currentText = binding.etNote.text.toString()
 
