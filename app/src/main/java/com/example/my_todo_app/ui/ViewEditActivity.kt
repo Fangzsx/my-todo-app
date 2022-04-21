@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.my_todo_app.R
 import com.example.my_todo_app.databinding.ActivityViewEditBinding
 import com.example.my_todo_app.db.NoteDatabase
+import com.example.my_todo_app.model.Note
 import com.example.my_todo_app.repo.NoteRepository
 import com.example.my_todo_app.viewmodel.ViewEditActivityViewModel
 import com.example.my_todo_app.viewmodel.factory.ViewEditActivityViewModelFactory
@@ -26,7 +27,7 @@ class ViewEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityViewEditBinding.inflate(layoutInflater)
         viewEditActivityVMF = ViewEditActivityViewModelFactory(NoteRepository(NoteDatabase.getInstance(this).getNoteDao()))
-        viewEditActivityVM = ViewModelProvider(this, viewEditActivityVMF).get(ViewEditActivityViewModel::class.java)
+        viewEditActivityVM = ViewModelProvider(this, viewEditActivityVMF)[ViewEditActivityViewModel::class.java]
         setContentView(binding.root)
 
         val id = intent.getIntExtra("noteID", 0)
@@ -40,32 +41,8 @@ class ViewEditActivity : AppCompatActivity() {
 
 
         viewEditActivityVM.getNoteByID(id).observe(this){ note ->
-            binding.etNote.setText(note.content.trim())
 
-            //cache original note content before changing
-            val currentText = binding.etNote.text.toString().trim()
-
-            Toast.makeText(this, "$currentText", Toast.LENGTH_SHORT).show()
-
-            binding.etNote.addTextChangedListener(object : TextWatcher{
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun afterTextChanged(p0: Editable?) {
-                    binding.btnSave.visibility = View.VISIBLE
-
-                    if(currentText == binding.etNote.text.toString().trim()){
-                        binding.btnSave.visibility = View.GONE
-                    }
-                }
-
-            })
-
+            setupEditText(note)
             binding.btnEdit.setOnClickListener {
 
                 binding.etNote.apply {
@@ -81,5 +58,31 @@ class ViewEditActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun setupEditText(note: Note) {
+        binding.etNote.setText(note.content.trim())
+        //cache original note content before changing
+        val currentText = binding.etNote.text.toString().trim()
+
+        binding.etNote.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                binding.btnSave.visibility = View.VISIBLE
+
+                if (currentText == binding.etNote.text.toString().trim() || binding.etNote.text!!.isEmpty()) {
+
+                    binding.btnSave.visibility = View.GONE
+                }
+            }
+
+        })
     }
 }
