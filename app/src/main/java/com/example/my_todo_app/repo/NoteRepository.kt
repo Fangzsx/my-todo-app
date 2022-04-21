@@ -10,6 +10,10 @@ class NoteRepository(
 
     val notes : LiveData<List<Note>> = noteDao.getNotes()
 
+    fun getNoteByID(id : Int) : LiveData<Note> {
+        return noteDao.getNoteById(id)
+    }
+
     suspend fun addNote(note : Note){
         noteDao.addNote(note)
     }
@@ -17,5 +21,8 @@ class NoteRepository(
     suspend fun deleteNote(note : Note){
         noteDao.deleteNote(note)
     }
+
+
+
     
 }

@@ -12,7 +12,7 @@ class ViewEditActivityViewModel(
     private val repository: NoteRepository
 ) : ViewModel() {
 
-
+    fun getNoteByID(id : Int) : LiveData<Note> = repository.getNoteByID(id)
 
 
 
