@@ -15,6 +15,7 @@ import com.example.my_todo_app.databinding.ActivityViewEditBinding
 import com.example.my_todo_app.db.NoteDatabase
 import com.example.my_todo_app.model.Note
 import com.example.my_todo_app.repo.NoteRepository
+import com.example.my_todo_app.util.KeyboardUtil
 import com.example.my_todo_app.viewmodel.ViewEditActivityViewModel
 import com.example.my_todo_app.viewmodel.factory.ViewEditActivityViewModelFactory
 
@@ -50,14 +51,10 @@ class ViewEditActivity : AppCompatActivity() {
                     requestFocus()
                     setSelection(this.text!!.trimmedLength())
                 }
-
-
+                KeyboardUtil.showKeyboard(this)
             }
 
         }
-
-
-
     }
 
     private fun setupEditText(note: Note) {
@@ -78,11 +75,9 @@ class ViewEditActivity : AppCompatActivity() {
                 binding.btnSave.visibility = View.VISIBLE
 
                 if (currentText == binding.etNote.text.toString().trim() || binding.etNote.text!!.isEmpty()) {
-
                     binding.btnSave.visibility = View.GONE
                 }
             }
-
         })
     }
 }
