@@ -2,11 +2,11 @@ package com.example.my_todo_app.ui
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.my_todo_app.R
 import com.example.my_todo_app.databinding.ActivityAddNoteBinding
@@ -15,6 +15,8 @@ import com.example.my_todo_app.model.Note
 import com.example.my_todo_app.repo.NoteRepository
 import com.example.my_todo_app.viewmodel.AddNoteActivityViewModel
 import com.example.my_todo_app.viewmodel.factory.AddNoteActivityViewModelFactory
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class AddNoteActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddNoteBinding
@@ -43,7 +45,13 @@ class AddNoteActivity : AppCompatActivity() {
             if(content.isNotEmpty()){
                 val note = Note(0, content)
                 addNoteVM.addNote(note)
-                Toast.makeText(this, "Note added.", Toast.LENGTH_SHORT).show()
+
+                MotionToast.createColorToast(this,"SUCCESS",
+                    "Note added",
+                    MotionToastStyle.SUCCESS,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(this,R.font.opensansregular))
 
                 Intent(this, DashboardActivity::class.java).also {
                     startActivity(it)

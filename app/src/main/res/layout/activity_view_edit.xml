@@ -58,6 +58,30 @@
                     android:background="#F4B3D2"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_10sdp"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/_10sdp">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@drawable/checkbox_bg"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Already done?"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/opensansregular"
+                    android:textSize="@dimen/_12sdp"/>
+
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,15 +122,8 @@
                         android:fontFamily="@font/opensanssemibold"
                         android:background="@drawable/button_bg"
                         android:layout_marginStart="@dimen/_10sdp"/>
-
                 </LinearLayout>
-
-
-
-
             </LinearLayout>
-
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
