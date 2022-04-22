@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.text.trimmedLength
@@ -52,7 +54,7 @@ class ViewEditActivity : AppCompatActivity() {
 
         viewEditActivityVM.getNoteByID(id).observe(this){ note ->
             note?.let {
-                setupEditText(it)
+                updateNote(it)
             }
 
             binding.btnEdit.setOnClickListener {
@@ -89,7 +91,16 @@ class ViewEditActivity : AppCompatActivity() {
         KeyboardUtil.showKeyboard(this)
     }
 
-    private fun setupEditText(note: Note) {
+    private fun updateNote(note: Note) {
+
+
+        binding.cbIsDone.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
+            override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+                binding.btnSave.visibility = View.VISIBLE
+            }
+
+        })
+
         binding.etNote.setText(note.content.trim())
         //cache original note content before changing
         val currentText = binding.etNote.text.toString().trim()
