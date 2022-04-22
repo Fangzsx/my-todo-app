@@ -1,5 +1,6 @@
 package com.example.my_todo_app.ui
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +21,13 @@ class AddNoteActivity : AppCompatActivity() {
     private lateinit var addNoteVM : AddNoteActivityViewModel
     private lateinit var addNoteVMF : AddNoteActivityViewModelFactory
 
+    override fun onBackPressed() {
+        Intent(this, DashboardActivity::class.java).also{
+            startActivity(it)
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNoteBinding.inflate(layoutInflater)
@@ -36,6 +44,11 @@ class AddNoteActivity : AppCompatActivity() {
                 val note = Note(0, content)
                 addNoteVM.addNote(note)
                 Toast.makeText(this, "Note added.", Toast.LENGTH_SHORT).show()
+
+                Intent(this, DashboardActivity::class.java).also {
+                    startActivity(it)
+                    finish()
+                }
             }else{
                 Toast.makeText(this, "Note cannot be empty.", Toast.LENGTH_SHORT).show()
             }

@@ -14,6 +14,13 @@ class ViewEditActivityViewModel(
 
     fun getNoteByID(id : Int) : LiveData<Note> = repository.getNoteByID(id)
 
+    fun addNote(note : Note) = viewModelScope.launch {
+        repository.addNote(note)
+    }
+
+    fun deleteNote(note : Note) = viewModelScope.launch {
+        repository.deleteNote(note)
+    }
 
 
 

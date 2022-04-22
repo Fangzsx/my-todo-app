@@ -1,5 +1,6 @@
 package com.example.my_todo_app.ui
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +25,13 @@ class ViewEditActivity : AppCompatActivity() {
     private lateinit var viewEditActivityVM : ViewEditActivityViewModel
     private lateinit var viewEditActivityVMF : ViewEditActivityViewModelFactory
 
+    override fun onBackPressed() {
+        Intent(this, DashboardActivity::class.java).also{
+            startActivity(it)
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewEditBinding.inflate(layoutInflater)
@@ -31,6 +39,7 @@ class ViewEditActivity : AppCompatActivity() {
         viewEditActivityVM = ViewModelProvider(this, viewEditActivityVMF)[ViewEditActivityViewModel::class.java]
         setContentView(binding.root)
 
+        //get id from dashboard activity's recyclerview item
         val id = intent.getIntExtra("noteID", 0)
 
         binding.etNote.setOnFocusChangeListener { _, hasFocus ->
@@ -42,19 +51,42 @@ class ViewEditActivity : AppCompatActivity() {
 
 
         viewEditActivityVM.getNoteByID(id).observe(this){ note ->
-
-            setupEditText(note)
-            binding.btnEdit.setOnClickListener {
-
-                binding.etNote.apply {
-                    isEnabled = true
-                    requestFocus()
-                    setSelection(this.text!!.trimmedLength())
-                }
-                KeyboardUtil.showKeyboard(this)
+            note?.let {
+                setupEditText(it)
             }
 
+            binding.btnEdit.setOnClickListener {
+                setEditTextToFocus()
+            }
+
+            binding.btnSave.setOnClickListener {
+                val newNote = Note(note.id, binding.etNote.text.toString().trim())
+                viewEditActivityVM.addNote(newNote)
+                Toast.makeText(this, "Note Updated.", Toast.LENGTH_SHORT).show()
+                Intent(this, DashboardActivity::class.java).also{
+                    startActivity(it)
+                }
+                finish()
+            }
+
+            binding.btnDelete.setOnClickListener {
+                viewEditActivityVM.deleteNote(note)
+                Toast.makeText(this, "Note deleted.", Toast.LENGTH_SHORT).show()
+                Intent(this, DashboardActivity::class.java).also{
+                    startActivity(it)
+                }
+                finish()
+            }
         }
+    }
+
+    private fun setEditTextToFocus() {
+        binding.etNote.apply {
+            isEnabled = true
+            requestFocus()
+            setSelection(this.text!!.trimmedLength())
+        }
+        KeyboardUtil.showKeyboard(this)
     }
 
     private fun setupEditText(note: Note) {

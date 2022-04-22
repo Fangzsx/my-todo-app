@@ -33,6 +33,7 @@ class DashboardActivity : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         prefs = getSharedPreferences(ProfileSetupActivity.PACKAGE_NAME, Context.MODE_PRIVATE)
 
@@ -66,12 +67,14 @@ class DashboardActivity : AppCompatActivity() {
         val dateToday = Calendar.getInstance()
         val formattedDate = formatter.format(dateToday.time)
         val dayOfWeek = Calendar.DAY_OF_WEEK-4
-        binding.tvDateToday.text = "Today is ${Constants.daysOfWeek[dayOfWeek]}, $formattedDate"
+        binding.tvDateToday.text = "Today is $formattedDate"
 
         binding.btnAdd.setOnClickListener {
             Intent(this, AddNoteActivity::class.java).also {
                 startActivity(it)
+                finish()
             }
+
         }
 
         dashboardActivityVM.getNotes().observe(this){ noteList ->
@@ -86,6 +89,7 @@ class DashboardActivity : AppCompatActivity() {
             Intent(this, ViewEditActivity::class.java).apply {
                 putExtra("noteID", note.id)
                 startActivity(this)
+                finish()
             }
         }
 
