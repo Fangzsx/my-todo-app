@@ -94,12 +94,9 @@ class ViewEditActivity : AppCompatActivity() {
     private fun updateNote(note: Note) {
 
 
-        binding.cbIsDone.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
-            override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
-                binding.btnSave.visibility = View.VISIBLE
-            }
-
-        })
+        binding.cbIsDone.setOnCheckedChangeListener { _, _ ->
+            binding.btnSave.visibility = View.VISIBLE
+        }
 
         binding.etNote.setText(note.content.trim())
         //cache original note content before changing
