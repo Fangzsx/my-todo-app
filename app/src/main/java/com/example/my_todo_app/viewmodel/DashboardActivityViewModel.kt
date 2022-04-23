@@ -21,7 +21,7 @@ class DashboardActivityViewModel(
     private val repository: NoteRepository
 ) : ViewModel() {
 
-    val TAG = "DashboardActivityVM"
+    private val TAG = "DashboardActivityVM"
     private val _quote : MutableLiveData<QuoteResponseItem> = MutableLiveData()
     val quote : LiveData<QuoteResponseItem> = _quote
 

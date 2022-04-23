@@ -36,53 +36,41 @@ class DashboardActivity : AppCompatActivity() {
 
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         prefs = getSharedPreferences(ProfileSetupActivity.PACKAGE_NAME, Context.MODE_PRIVATE)
-
         dashboardActivityVMF = DashboardActivityFactory(NoteRepository(NoteDatabase.getInstance(this).getNoteDao()))
         dashboardActivityVM = ViewModelProvider(this, dashboardActivityVMF).get(DashboardActivityViewModel::class.java)
-
-
         noteAdapter = NoteAdapter()
         setContentView(binding.root)
 
-        //check if profile is already set up
+        verifyUserProfileSetup() //redirect to profile setup
+        //if user already setup, then proceed to regular flow
+        showUserDetails()
+        showRandomQuote()
+        setUpTodoRecyclerView()
 
-        //if not yet setup, direct user to setup page
-        val isProfileSetUpComplete = prefs.getBoolean(ProfileSetupActivity.IS_SETUP_COMPLETE, false)
-        if(!isProfileSetUpComplete){
-            Intent(this, GreetActivity::class.java).also {
-                startActivity(it)
-            }
-        }
-
-
-        //else, display user info
-        val name = prefs.getString(ProfileSetupActivity.NAME, "")
-        val profilePicURI = prefs.getString(ProfileSetupActivity.IMAGE_URI_STRING, "")
-        binding.profilePic.setImageURI(Uri.parse(profilePicURI))
-
-        binding.tvEncourage.text = "Let's do this, $name!"
-
-
-        val formatter = SimpleDateFormat("dd MMM yyyy")
-        val dateToday = Calendar.getInstance()
-        val formattedDate = formatter.format(dateToday.time)
-        val dayOfWeek = Calendar.DAY_OF_WEEK-4
-        binding.tvDateToday.text = "Today is $formattedDate"
-
+        //for adding notes
         binding.btnAdd.setOnClickListener {
             Intent(this, AddNoteActivity::class.java).also {
                 startActivity(it)
                 finish()
             }
-
         }
+    }
 
-        dashboardActivityVM.getNotes().observe(this){ noteList ->
+    private fun showRandomQuote() {
+        dashboardActivityVM.getRandomQuote()
+        dashboardActivityVM.quote.observe(this){ quote->
+            binding.tvQuote.text = quote.q
+        }
+    }
+
+    private fun setUpTodoRecyclerView() {
+        dashboardActivityVM.getNotes().observe(this) { noteList ->
             noteAdapter.differ.submitList(noteList)
         }
 
         binding.rvTodos.apply {
-            layoutManager = LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.VERTICAL, false)
             adapter = noteAdapter
         }
         noteAdapter.onItemClick = { note ->
@@ -92,6 +80,32 @@ class DashboardActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
 
+    private fun showUserDetails() {
+        val name = prefs.getString(ProfileSetupActivity.NAME, "")
+        val profilePicURI = prefs.getString(ProfileSetupActivity.IMAGE_URI_STRING, "")
+        binding.profilePic.setImageURI(Uri.parse(profilePicURI))
+        binding.tvEncourage.text = "Let's do this, $name!"
+        showCurrentDate()
+    }
+
+    private fun showCurrentDate() {
+        val formatter = SimpleDateFormat("dd MMM yyyy")
+        val dateToday = Calendar.getInstance()
+        val formattedDate = formatter.format(dateToday.time)
+        val dayOfWeek = Calendar.DAY_OF_WEEK - 4
+        binding.tvDateToday.text = "Today is $formattedDate"
+    }
+
+    private fun verifyUserProfileSetup() {
+        //check if profile is already set up
+        //if not yet setup, direct user to setup page
+        val isProfileSetUpComplete = prefs.getBoolean(ProfileSetupActivity.IS_SETUP_COMPLETE, false)
+        if (!isProfileSetUpComplete) {
+            Intent(this, GreetActivity::class.java).also {
+                startActivity(it)
+            }
+        }
     }
 }
