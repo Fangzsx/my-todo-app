@@ -19,7 +19,5 @@ class Constants {
             "Rise above,")
 
         const val BASE_URL = "https://zenquotes.io/"
-
-
     }
 }

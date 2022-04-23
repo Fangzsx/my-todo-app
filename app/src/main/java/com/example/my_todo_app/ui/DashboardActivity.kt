@@ -1,13 +1,14 @@
 package com.example.my_todo_app.ui
 
+import android.R
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.widget.Toast
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,12 +16,10 @@ import com.example.my_todo_app.adapter.NoteAdapter
 import com.example.my_todo_app.databinding.ActivityDashboardBinding
 import com.example.my_todo_app.db.NoteDatabase
 import com.example.my_todo_app.repo.NoteRepository
-import com.example.my_todo_app.util.Constants
 import com.example.my_todo_app.viewmodel.DashboardActivityViewModel
 import com.example.my_todo_app.viewmodel.factory.DashboardActivityFactory
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.random.Random
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -29,9 +28,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var dashboardActivityVM : DashboardActivityViewModel
     private lateinit var dashboardActivityVMF : DashboardActivityFactory
     private lateinit var noteAdapter : NoteAdapter
-
-
-
+    
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +46,7 @@ class DashboardActivity : AppCompatActivity() {
         showRandomQuote()
         setUpTodoRecyclerView()
 
+
         //for adding notes
         binding.btnAdd.setOnClickListener {
             Intent(this, AddNoteActivity::class.java).also {
@@ -61,8 +59,8 @@ class DashboardActivity : AppCompatActivity() {
     private fun showRandomQuote() {
         dashboardActivityVM.getRandomQuote()
         dashboardActivityVM.quote.observe(this){ quote->
-            binding.tvQuote.text = "\"${quote.q}\""
-            binding.tvAuthor.text = "Author: ${quote.a}"
+            binding.tvQuote.text = quote.q
+            binding.tvAuthor.text = quote.a
         }
     }
 
