@@ -1,25 +1,25 @@
 package com.example.my_todo_app.repo
 
 import androidx.lifecycle.LiveData
-import com.example.my_todo_app.db.NoteDao
-import com.example.my_todo_app.model.Note
+import com.example.my_todo_app.db.TodoDao
+import com.example.my_todo_app.model.Todo
 
 class NoteRepository(
-    private val noteDao : NoteDao
+    private val todoDao : TodoDao
 ) {
 
-    val notes : LiveData<List<Note>> = noteDao.getNotes()
+    val notes : LiveData<List<Todo>> = todoDao.getNotes()
 
-    fun getNoteByID(id : Int) : LiveData<Note> {
-        return noteDao.getNoteById(id)
+    fun getNoteByID(id : Int) : LiveData<Todo> {
+        return todoDao.getNoteById(id)
     }
 
-    suspend fun addNote(note : Note){
-        noteDao.addNote(note)
+    suspend fun addNote(todo : Todo){
+        todoDao.addNote(todo)
     }
 
-    suspend fun deleteNote(note : Note){
-        noteDao.deleteNote(note)
+    suspend fun deleteNote(todo : Todo){
+        todoDao.deleteNote(todo)
     }
 
 

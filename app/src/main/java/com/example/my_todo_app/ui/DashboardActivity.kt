@@ -6,13 +6,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.my_todo_app.adapter.NoteAdapter
+import com.example.my_todo_app.adapter.TodoAdapter
 import com.example.my_todo_app.databinding.ActivityDashboardBinding
-import com.example.my_todo_app.db.NoteDatabase
+import com.example.my_todo_app.db.TodoDatabase
 import com.example.my_todo_app.repo.NoteRepository
 import com.example.my_todo_app.viewmodel.DashboardActivityViewModel
 import com.example.my_todo_app.viewmodel.factory.DashboardActivityFactory
@@ -25,7 +24,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var prefs : SharedPreferences
     private lateinit var dashboardActivityVM : DashboardActivityViewModel
     private lateinit var dashboardActivityVMF : DashboardActivityFactory
-    private lateinit var noteAdapter : NoteAdapter
+    private lateinit var todoAdapter : TodoAdapter
     
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,9 +32,9 @@ class DashboardActivity : AppCompatActivity() {
 
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         prefs = getSharedPreferences(ProfileSetupActivity.PACKAGE_NAME, Context.MODE_PRIVATE)
-        dashboardActivityVMF = DashboardActivityFactory(NoteRepository(NoteDatabase.getInstance(this).getNoteDao()))
+        dashboardActivityVMF = DashboardActivityFactory(NoteRepository(TodoDatabase.getInstance(this).getNoteDao()))
         dashboardActivityVM = ViewModelProvider(this, dashboardActivityVMF).get(DashboardActivityViewModel::class.java)
-        noteAdapter = NoteAdapter()
+        todoAdapter = TodoAdapter()
         setContentView(binding.root)
 
         verifyUserProfileSetup() //redirect to profile setup
@@ -56,7 +55,7 @@ class DashboardActivity : AppCompatActivity() {
 
         //for adding notes
         binding.btnAdd.setOnClickListener {
-            Intent(this, AddNoteActivity::class.java).also {
+            Intent(this, AddTodoActivity::class.java).also {
                 startActivity(it)
                 finish()
             }
@@ -73,15 +72,15 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun setUpTodoRecyclerView() {
         dashboardActivityVM.getNotes().observe(this) { noteList ->
-            noteAdapter.differ.submitList(noteList)
+            todoAdapter.differ.submitList(noteList)
         }
 
         binding.rvTodos.apply {
             layoutManager =
                 LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.VERTICAL, false)
-            adapter = noteAdapter
+            adapter = todoAdapter
         }
-        noteAdapter.onItemClick = { note ->
+        todoAdapter.onItemClick = { note ->
             Intent(this, ViewEditActivity::class.java).apply {
                 putExtra("noteID", note.id)
                 startActivity(this)

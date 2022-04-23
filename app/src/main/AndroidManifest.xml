@@ -21,7 +21,7 @@
             android:name=".ui.ViewEditActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AddNoteActivity"
+            android:name=".ui.AddTodoActivity"
             android:exported="false" />
         <activity
             android:name=".ui.DashboardActivity"

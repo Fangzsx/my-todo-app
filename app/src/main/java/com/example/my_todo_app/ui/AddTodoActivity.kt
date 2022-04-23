@@ -10,15 +10,15 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.my_todo_app.R
 import com.example.my_todo_app.databinding.ActivityAddNoteBinding
-import com.example.my_todo_app.db.NoteDatabase
-import com.example.my_todo_app.model.Note
+import com.example.my_todo_app.db.TodoDatabase
+import com.example.my_todo_app.model.Todo
 import com.example.my_todo_app.repo.NoteRepository
 import com.example.my_todo_app.viewmodel.AddNoteActivityViewModel
 import com.example.my_todo_app.viewmodel.factory.AddNoteActivityViewModelFactory
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
-class AddNoteActivity : AppCompatActivity() {
+class AddTodoActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddNoteBinding
     private lateinit var addNoteVM : AddNoteActivityViewModel
     private lateinit var addNoteVMF : AddNoteActivityViewModelFactory
@@ -35,7 +35,7 @@ class AddNoteActivity : AppCompatActivity() {
         binding = ActivityAddNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        addNoteVMF = AddNoteActivityViewModelFactory(NoteRepository(NoteDatabase.getInstance(this).getNoteDao()))
+        addNoteVMF = AddNoteActivityViewModelFactory(NoteRepository(TodoDatabase.getInstance(this).getNoteDao()))
         addNoteVM = ViewModelProvider(this, addNoteVMF)[AddNoteActivityViewModel::class.java]
 
 
@@ -43,11 +43,11 @@ class AddNoteActivity : AppCompatActivity() {
             val content = binding.etNote.text.toString().trim()
 
             if(content.isNotEmpty()){
-                val note = Note(0, content, false)
+                val note = Todo(0, content, false)
                 addNoteVM.addNote(note)
 
                 MotionToast.createColorToast(this,"SUCCESS",
-                    "Note added",
+                    "Todo was added on list",
                     MotionToastStyle.SUCCESS,
                     MotionToast.GRAVITY_BOTTOM,
                     MotionToast.LONG_DURATION,
@@ -58,7 +58,12 @@ class AddNoteActivity : AppCompatActivity() {
                     finish()
                 }
             }else{
-                Toast.makeText(this, "Note cannot be empty.", Toast.LENGTH_SHORT).show()
+                MotionToast.createColorToast(this,"ERROR",
+                    "Text cannot be empty",
+                    MotionToastStyle.ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(this,R.font.opensansregular))
             }
         }
 
@@ -66,7 +71,7 @@ class AddNoteActivity : AppCompatActivity() {
             if (hasFocus) {
                 binding.textInputLayout.hint = "I am planning to ..."
                 binding.textInputLayout.defaultHintTextColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(this@AddNoteActivity, R.color.gray)
+                    ContextCompat.getColor(this@AddTodoActivity, R.color.gray)
                 )
             }
         }

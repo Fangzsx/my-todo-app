@@ -7,17 +7,14 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.trimmedLength
 import androidx.lifecycle.ViewModelProvider
 import com.example.my_todo_app.R
 import com.example.my_todo_app.databinding.ActivityViewEditBinding
-import com.example.my_todo_app.db.NoteDatabase
-import com.example.my_todo_app.model.Note
+import com.example.my_todo_app.db.TodoDatabase
+import com.example.my_todo_app.model.Todo
 import com.example.my_todo_app.repo.NoteRepository
 import com.example.my_todo_app.util.KeyboardUtil
 import com.example.my_todo_app.viewmodel.ViewEditActivityViewModel
@@ -40,7 +37,7 @@ class ViewEditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewEditBinding.inflate(layoutInflater)
-        viewEditActivityVMF = ViewEditActivityViewModelFactory(NoteRepository(NoteDatabase.getInstance(this).getNoteDao()))
+        viewEditActivityVMF = ViewEditActivityViewModelFactory(NoteRepository(TodoDatabase.getInstance(this).getNoteDao()))
         viewEditActivityVM = ViewModelProvider(this, viewEditActivityVMF)[ViewEditActivityViewModel::class.java]
         setContentView(binding.root)
 
@@ -64,7 +61,7 @@ class ViewEditActivity : AppCompatActivity() {
             }
 
             binding.btnSave.setOnClickListener {
-                val newNote = Note(note.id, binding.etNote.text.toString().trim(),binding.cbIsDone.isChecked)
+                val newNote = Todo(note.id, binding.etNote.text.toString().trim(),binding.cbIsDone.isChecked)
                 viewEditActivityVM.addNote(newNote)
                 MotionToast.createColorToast(this,"UPDATE",
                     "Todo was updated",
@@ -103,15 +100,15 @@ class ViewEditActivity : AppCompatActivity() {
         KeyboardUtil.showKeyboard(this)
     }
 
-    private fun updateNote(note: Note) {
+    private fun updateNote(todo: Todo) {
 
-        binding.cbIsDone.isChecked = note.isDone
+        binding.cbIsDone.isChecked = todo.isDone
 
         binding.cbIsDone.setOnCheckedChangeListener { _, _ ->
             binding.btnSave.visibility = View.VISIBLE
         }
 
-        binding.etNote.setText(note.content.trim())
+        binding.etNote.setText(todo.content.trim())
         //cache original note content before changing
         val currentText = binding.etNote.text.toString().trim()
 

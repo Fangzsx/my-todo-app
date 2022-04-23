@@ -6,20 +6,20 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.my_todo_app.databinding.NoteItemBinding
-import com.example.my_todo_app.model.Note
+import com.example.my_todo_app.model.Todo
 
-class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+class TodoAdapter : RecyclerView.Adapter<TodoAdapter.NoteViewHolder>() {
 
-    var onItemClick : ((Note) -> Unit)? = null
+    var onItemClick : ((Todo) -> Unit)? = null
 
     inner class NoteViewHolder(val binding : NoteItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<Note>(){
-        override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<Todo>(){
+        override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+        override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean {
             return oldItem == newItem
         }
     }

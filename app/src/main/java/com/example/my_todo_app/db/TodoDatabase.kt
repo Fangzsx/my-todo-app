@@ -4,29 +4,29 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.my_todo_app.model.Note
+import com.example.my_todo_app.model.Todo
 
 @Database(
-    entities = [Note::class],
+    entities = [Todo::class],
     version = 1
 )
-abstract class NoteDatabase : RoomDatabase(){
+abstract class TodoDatabase : RoomDatabase(){
 
-    abstract fun getNoteDao() : NoteDao
+    abstract fun getNoteDao() : TodoDao
 
     companion object{
         @Volatile
-        private var INSTANCE : NoteDatabase? = null
+        private var INSTANCE : TodoDatabase? = null
 
         @Synchronized
-        fun getInstance(context : Context) : NoteDatabase{
+        fun getInstance(context : Context) : TodoDatabase{
             if(INSTANCE == null){
                 INSTANCE = Room.databaseBuilder(context,
-                NoteDatabase::class.java,
+                TodoDatabase::class.java,
                 "notes_db")
                     .build()
             }
-            return INSTANCE as NoteDatabase
+            return INSTANCE as TodoDatabase
         }
     }
 
