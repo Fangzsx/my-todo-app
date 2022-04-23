@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,7 +61,8 @@ class DashboardActivity : AppCompatActivity() {
     private fun showRandomQuote() {
         dashboardActivityVM.getRandomQuote()
         dashboardActivityVM.quote.observe(this){ quote->
-            binding.tvQuote.text = quote.q
+            binding.tvQuote.text = "\"${quote.q}\""
+            binding.tvAuthor.text = "Author: ${quote.a}"
         }
     }
 
