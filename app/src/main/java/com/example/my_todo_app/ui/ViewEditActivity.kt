@@ -62,7 +62,7 @@ class ViewEditActivity : AppCompatActivity() {
             }
 
             binding.btnSave.setOnClickListener {
-                val newNote = Note(note.id, binding.etNote.text.toString().trim())
+                val newNote = Note(note.id, binding.etNote.text.toString().trim(),binding.cbIsDone.isChecked)
                 viewEditActivityVM.addNote(newNote)
                 Toast.makeText(this, "Note Updated.", Toast.LENGTH_SHORT).show()
                 Intent(this, DashboardActivity::class.java).also{
