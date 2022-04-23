@@ -17,5 +17,9 @@ class Constants {
             "Better days are coming,",
             "Trust yourself,",
             "Rise above,")
+
+        const val BASE_URL = "https://zenquotes.io/"
+
+
     }
 }
