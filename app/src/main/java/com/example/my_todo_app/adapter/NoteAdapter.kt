@@ -40,6 +40,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
         holder.binding.apply {
             tvNote.text = note.content
+            cbIsDone.isChecked = note.isDone
         }
 
         holder.itemView.setOnClickListener {

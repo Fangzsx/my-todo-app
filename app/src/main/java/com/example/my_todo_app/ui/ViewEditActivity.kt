@@ -92,6 +92,9 @@ class ViewEditActivity : AppCompatActivity() {
     }
 
     private fun updateNote(note: Note) {
+
+        binding.cbIsDone.isChecked = note.isDone
+
         binding.cbIsDone.setOnCheckedChangeListener { _, _ ->
             binding.btnSave.visibility = View.VISIBLE
         }

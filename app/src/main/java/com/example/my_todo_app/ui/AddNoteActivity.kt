@@ -43,7 +43,7 @@ class AddNoteActivity : AppCompatActivity() {
             val content = binding.etNote.text.toString().trim()
 
             if(content.isNotEmpty()){
-                val note = Note(0, content)
+                val note = Note(0, content, false)
                 addNoteVM.addNote(note)
 
                 MotionToast.createColorToast(this,"SUCCESS",
