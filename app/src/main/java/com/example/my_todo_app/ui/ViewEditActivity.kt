@@ -11,6 +11,7 @@ import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.trimmedLength
 import androidx.lifecycle.ViewModelProvider
 import com.example.my_todo_app.R
@@ -21,6 +22,8 @@ import com.example.my_todo_app.repo.NoteRepository
 import com.example.my_todo_app.util.KeyboardUtil
 import com.example.my_todo_app.viewmodel.ViewEditActivityViewModel
 import com.example.my_todo_app.viewmodel.factory.ViewEditActivityViewModelFactory
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class ViewEditActivity : AppCompatActivity() {
     private lateinit var binding : ActivityViewEditBinding
@@ -51,7 +54,6 @@ class ViewEditActivity : AppCompatActivity() {
             }
         }
 
-
         viewEditActivityVM.getNoteByID(id).observe(this){ note ->
             note?.let {
                 updateNote(it)
@@ -64,7 +66,12 @@ class ViewEditActivity : AppCompatActivity() {
             binding.btnSave.setOnClickListener {
                 val newNote = Note(note.id, binding.etNote.text.toString().trim(),binding.cbIsDone.isChecked)
                 viewEditActivityVM.addNote(newNote)
-                Toast.makeText(this, "Note Updated.", Toast.LENGTH_SHORT).show()
+                MotionToast.createColorToast(this,"UPDATE",
+                    "Todo was updated",
+                    MotionToastStyle.INFO,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(this,R.font.opensansregular))
                 Intent(this, DashboardActivity::class.java).also{
                     startActivity(it)
                 }
@@ -73,7 +80,12 @@ class ViewEditActivity : AppCompatActivity() {
 
             binding.btnDelete.setOnClickListener {
                 viewEditActivityVM.deleteNote(note)
-                Toast.makeText(this, "Note deleted.", Toast.LENGTH_SHORT).show()
+                MotionToast.createColorToast(this,"REMOVE",
+                    "Todo was removed from list",
+                    MotionToastStyle.DELETE,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(this,R.font.opensansregular))
                 Intent(this, DashboardActivity::class.java).also{
                     startActivity(it)
                 }

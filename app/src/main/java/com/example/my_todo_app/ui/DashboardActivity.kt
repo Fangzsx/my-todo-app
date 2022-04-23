@@ -1,14 +1,12 @@
 package com.example.my_todo_app.ui
 
-import android.R
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +43,15 @@ class DashboardActivity : AppCompatActivity() {
         showUserDetails()
         showRandomQuote()
         setUpTodoRecyclerView()
+
+        //change picture
+
+        binding.profilePic.setOnClickListener {
+            Intent(this, ProfileSetupActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+
 
 
         //for adding notes

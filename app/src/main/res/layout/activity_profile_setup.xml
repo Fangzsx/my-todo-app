@@ -24,11 +24,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:layout_width="@dimen/_125sdp"
+                android:layout_height="@dimen/_125sdp"
+                app:layout_constraintTop_toTopOf="@id/civ_profile_pic"
+                app:layout_constraintBottom_toBottomOf="@id/civ_profile_pic"
+                app:layout_constraintStart_toStartOf="@id/civ_profile_pic"
+                app:layout_constraintEnd_toEndOf="@id/civ_profile_pic"
+                android:background="@drawable/circle"/>
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civ_profile_pic"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_120sdp"
-                android:background="@drawable/circle"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -13,9 +13,12 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.example.my_todo_app.R
 import com.example.my_todo_app.databinding.ActivityProfileSetupBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class ProfileSetupActivity : AppCompatActivity() {
     private lateinit var binding : ActivityProfileSetupBinding
@@ -50,8 +53,12 @@ class ProfileSetupActivity : AppCompatActivity() {
                 }
                 else -> {
 
-                    //TODO: handle on return
-                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+                    MotionToast.createColorToast(this,"CANCEL",
+                        "Task Cancelled.",
+                        MotionToastStyle.WARNING,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(this,R.font.opensansregular))
                 }
             }
         }
@@ -73,7 +80,7 @@ class ProfileSetupActivity : AppCompatActivity() {
             val name = binding.etName.text.toString().trim()
             val imageURI = mProfileUri.toString()
 
-            if(name.isNotEmpty() && imageURI.isNotEmpty()){
+            if(name.isNotEmpty() && binding.civProfilePic.drawable != null){
                 editor.putString(NAME, name)
                 editor.putString(IMAGE_URI_STRING, imageURI)
                 editor.putBoolean(IS_SETUP_COMPLETE, true)
@@ -83,7 +90,12 @@ class ProfileSetupActivity : AppCompatActivity() {
                     startActivity(it)
                 }
             }else{
-                Toast.makeText(this, "please include image and name", Toast.LENGTH_SHORT).show()
+                MotionToast.createColorToast(this,"ERROR",
+                    "Specify your name and set image",
+                    MotionToastStyle.ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(this,R.font.opensansregular))
             }
             
             
