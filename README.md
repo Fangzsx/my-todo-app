@@ -21,6 +21,7 @@ For someone who tends to forget things, a to-do app is a must-have. My motivatio
 2. Display All Todo in Dashboard
 3. Random Quote Generator- A random quote is displayed in dashboard coming from ZenQuoteAPI.
 4. Profile Setup- User can set up his/her name and image which will then displayed in dashboard. Setups are then save even if the user close the application.
+5. No internet connection required- App works even if the user has no internet connection. Consequently, no quote will be generated.
 
 ## Project Experience
 This project is my first attempt to create an app together with Figma. I learned a lot and I had fun creating my own design. I used Room Database to store todos and enhance the architecture using MVVM. I also stumble upon ZenQuoteAPI, a random motivational quote api and integrate it in this app.
